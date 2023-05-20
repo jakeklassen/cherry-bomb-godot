@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnnlsr4boss3"]
+
+[ext_resource type="AudioStream" uid="uid://cmbokm0vgejbv" path="res://assets/audio/title-screen-music.wav" id="1_lt5io"]
+[ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/player.tscn" id="1_qlm8k"]
+[ext_resource type="Script" path="res://scenes/starfield.gd" id="3_bla65"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_lt5io")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+texture_filter = 1
+position = Vector2(64, 64)
+
+[node name="Starfield" type="Node2D" parent="."]
+script = ExtResource("3_bla65")
+
+[node name="Player" parent="." instance=ExtResource("1_qlm8k")]
+position = Vector2(64, 64)

@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://b50dtnmtf8mkc"]
+
+[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_ig12m"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_mv0ka"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0fyc"]
+atlas = ExtResource("1_ig12m")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfwsy"]
+atlas = ExtResource("1_ig12m")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtr20"]
+atlas = ExtResource("1_ig12m")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heqg6"]
+atlas = ExtResource("1_ig12m")
+region = Rect2(64, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdfau"]
+atlas = ExtResource("1_ig12m")
+region = Rect2(72, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_etuik"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0fyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfwsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtr20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heqg6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdfau")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3f5om"]
+size = Vector2(6, 8)
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_mv0ka")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ig12m")
+region_enabled = true
+region_rect = Rect2(16, 0, 8, 8)
+
+[node name="Thruster" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Thruster"]
+position = Vector2(0, 7)
+sprite_frames = SubResource("SpriteFrames_etuik")
+animation = &"fire"
+autoplay = "fire"
+frame = 1
+frame_progress = 0.807361
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3f5om")
