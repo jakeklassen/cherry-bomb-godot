@@ -1,0 +1,6 @@
+[gd_resource type="RichTextEffect" load_steps=2 format=3 uid="uid://dhlb4ioshpm7h"]
+
+[ext_resource type="Script" path="res://scripts/text_custom_effects/blink.gd" id="1_csn8i"]
+
+[resource]
+script = ExtResource("1_csn8i")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbfvnar58rwij"]
+
+[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_k7jud"]
+
+[node name="Logo" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k7jud")
+region_enabled = true
+region_rect = Rect2(32, 104, 95, 14)

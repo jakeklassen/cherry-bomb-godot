@@ -1,0 +1,6 @@
+[gd_resource type="RichTextEffect" load_steps=2 format=3 uid="uid://o5sayj63om0k"]
+
+[ext_resource type="Script" path="res://scripts/text_custom_effects/pulse.gd" id="1_ywwi4"]
+
+[resource]
+script = ExtResource("1_ywwi4")

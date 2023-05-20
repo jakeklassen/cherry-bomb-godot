@@ -19,9 +19,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var velocity = Vector2.ZERO;
 	
-	if Input.is_action_pressed("quit"):
-		get_tree().quit();
-	
 	if Input.is_action_pressed("move_right"):
 		velocity.x = 1;
 	
