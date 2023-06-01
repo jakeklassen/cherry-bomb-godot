@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://cqurpijiboupe"]
 
-[ext_resource type="Script" path="res://scripts/screen.gd" id="1_sd2uo"]
+[ext_resource type="Script" path="res://scenes/screens/game_screen.gd" id="1_b14wn"]
 [ext_resource type="Script" path="res://scenes/starfield.gd" id="3_86dqm"]
 [ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/entities/player.tscn" id="3_vs7wm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
 
 [node name="GameScreen" type="Area2D"]
-script = ExtResource("1_sd2uo")
+script = ExtResource("1_b14wn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

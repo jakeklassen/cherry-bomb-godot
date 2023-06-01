@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b50dtnmtf8mkc"]
+[gd_scene load_steps=11 format=3 uid="uid://b50dtnmtf8mkc"]
 
 [ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_ig12m"]
 [ext_resource type="Script" path="res://scenes/entities/player.gd" id="1_mv0ka"]
+[ext_resource type="PackedScene" uid="uid://bh2mlwkoy3xvg" path="res://scenes/entities/bullet.tscn" id="2_t8oi8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0fyc"]
 atlas = ExtResource("1_ig12m")
@@ -51,6 +52,7 @@ size = Vector2(6, 8)
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_mv0ka")
+Bullet = ExtResource("2_t8oi8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ig12m")
