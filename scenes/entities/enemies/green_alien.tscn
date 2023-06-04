@@ -42,11 +42,12 @@ animations = [{
 size = Vector2(8, 8)
 
 [node name="GreenAlien" type="Area2D"]
+collision_layer = 8
+collision_mask = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jk4ho")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_85h8s")

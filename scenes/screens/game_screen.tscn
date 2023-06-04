@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqurpijiboupe"]
+[gd_scene load_steps=6 format=3 uid="uid://cqurpijiboupe"]
 
 [ext_resource type="Script" path="res://scenes/screens/game_screen.gd" id="1_b14wn"]
 [ext_resource type="Script" path="res://scenes/starfield.gd" id="3_86dqm"]
 [ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/entities/player.tscn" id="3_vs7wm"]
+[ext_resource type="PackedScene" uid="uid://dwyccww2roa67" path="res://scenes/entities/enemies/green_alien.tscn" id="4_m2rxy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
 
@@ -12,6 +13,7 @@ script = ExtResource("1_b14wn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_3ptrv")
+disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 1
@@ -22,3 +24,6 @@ script = ExtResource("3_86dqm")
 
 [node name="Player" parent="." instance=ExtResource("3_vs7wm")]
 position = Vector2(64, 100)
+
+[node name="GreenAlien" parent="." instance=ExtResource("4_m2rxy")]
+position = Vector2(65, 48)

@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bgsp1umlgdk4u"]
+
+[ext_resource type="Shader" path="res://shaders/jitter_free.gdshader" id="1_814tv"]
+
+[resource]
+shader = ExtResource("1_814tv")

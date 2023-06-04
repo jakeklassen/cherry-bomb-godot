@@ -4,6 +4,8 @@ extends Area2D
 @export var max_lives: int = 4
 @export var cherries: int  = 0
 @export var score: int = 0
+@export var wave: int = 0
+@export var max_waves: int = 9
 
 # highscore loading?
 

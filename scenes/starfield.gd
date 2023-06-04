@@ -1,4 +1,4 @@
-# @tool
+#@tool
 
 extends Node2D
 
@@ -11,9 +11,9 @@ var velocities = [20, 30, 60];
 func _ready() -> void:
 	for i in count:
 		var star = {
-			"color": Color.from_string("#fff1e8", Color.WHITE),
-			"position": Vector2(randi_range(1, 127), randi_range(1, 127)),
-			"speed": velocities.pick_random(),
+			color = Color.from_string("#fff1e8", Color.WHITE),
+			position = Vector2(randi_range(1, 127), randi_range(1, 127)),
+			speed = velocities.pick_random(),
 		}
 		
 		if star.speed < 30:
@@ -34,6 +34,6 @@ func _process(delta: float) -> void:
 	
 	queue_redraw();
 
-func  _draw() -> void:
+func _draw() -> void:
 	for star in stars:
 		draw_rect(Rect2(star.position.x, star.position.y, 1, 1), star.color, true);
