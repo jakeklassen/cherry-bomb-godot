@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bh2mlwkoy3xvg"]
 
-[ext_resource type="Script" path="res://scenes/entities/bullet.gd" id="1_awwi1"]
-[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_mfl40"]
+[ext_resource type="Script" path="res://scenes/entities/bullet.gd" id="1_uechy"]
+[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="2_xqytg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hs47"]
 size = Vector2(6, 8)
@@ -9,13 +9,13 @@ size = Vector2(6, 8)
 [node name="Bullet" type="Area2D"]
 collision_layer = 2
 collision_mask = 8
-script = ExtResource("1_awwi1")
+script = ExtResource("1_uechy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1hs47")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_mfl40")
+texture = ExtResource("2_xqytg")
 region_enabled = true
 region_rect = Rect2(0, 8, 6, 8)
 

@@ -18,4 +18,5 @@ func _process_custom_fx(char_fx):
 	var y_off = sined_time * height
 	char_fx.color = char_fx.color.lerp(char_fx.color * color, sined_time)
 	char_fx.offset = Vector2(0, -1) * y_off
+
 	return true

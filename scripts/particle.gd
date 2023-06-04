@@ -42,7 +42,7 @@ func _draw() -> void:
 	if spark == true:
 		draw_rect(Rect2(position.x, position.y, 1, 1), Color.hex(Pico8.Pico8Color.Color7))
 	else:
-		draw_circle(position, floori(radius), color)
+		draw_circle(position.floor(), floori(radius), color)
 #	draw_arc(position, floori(radius), 0, TAU, 32, color)
 
 func determine_particle_color_from_age() -> Color:

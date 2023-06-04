@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://gbc78jdig4bk"]
+
+[ext_resource type="FontFile" uid="uid://cluaeu6c2ama5" path="res://assets/font/PICO-8.ttf" id="1_jko5c"]
+[ext_resource type="Script" path="res://scenes/effects/blinking_text.gd" id="1_wyjdk"]
+[ext_resource type="RichTextEffect" uid="uid://dhlb4ioshpm7h" path="res://scripts/text_custom_effects/blink.tres" id="2_23wdf"]
+
+[node name="BlinkingText" type="Node2D"]
+script = ExtResource("1_wyjdk")
+
+[node name="Text" type="RichTextLabel" parent="."]
+offset_right = 128.0
+offset_bottom = 5.0
+theme_override_fonts/normal_font = ExtResource("1_jko5c")
+theme_override_font_sizes/normal_font_size = 5
+bbcode_enabled = true
+custom_effects = [ExtResource("2_23wdf")]

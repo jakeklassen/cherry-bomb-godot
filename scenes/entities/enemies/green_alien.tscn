@@ -1,21 +1,21 @@
 [gd_scene load_steps=8 format=3 uid="uid://dwyccww2roa67"]
 
-[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_jxcky"]
+[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_4nmaj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1mvxj"]
-atlas = ExtResource("1_jxcky")
+atlas = ExtResource("1_4nmaj")
 region = Rect2(40, 8, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6dw0"]
-atlas = ExtResource("1_jxcky")
+atlas = ExtResource("1_4nmaj")
 region = Rect2(48, 8, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhljh"]
-atlas = ExtResource("1_jxcky")
+atlas = ExtResource("1_4nmaj")
 region = Rect2(56, 8, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fb8m8"]
-atlas = ExtResource("1_jxcky")
+atlas = ExtResource("1_4nmaj")
 region = Rect2(64, 8, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jk4ho"]
@@ -41,7 +41,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85h8s"]
 size = Vector2(8, 8)
 
-[node name="GreenAlien" type="Area2D"]
+[node name="GreenAlien" type="Area2D" groups=["enemies"]]
 collision_layer = 8
 collision_mask = 3
 

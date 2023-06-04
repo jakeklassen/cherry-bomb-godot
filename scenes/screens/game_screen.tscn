@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqurpijiboupe"]
+[gd_scene load_steps=7 format=3 uid="uid://cqurpijiboupe"]
 
-[ext_resource type="Script" path="res://scenes/screens/game_screen.gd" id="1_b14wn"]
-[ext_resource type="Script" path="res://scenes/starfield.gd" id="3_86dqm"]
-[ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/entities/player.tscn" id="3_vs7wm"]
-[ext_resource type="PackedScene" uid="uid://dwyccww2roa67" path="res://scenes/entities/enemies/green_alien.tscn" id="4_m2rxy"]
+[ext_resource type="Script" path="res://scenes/screens/game_screen.gd" id="1_el8ab"]
+[ext_resource type="Script" path="res://scenes/starfield.gd" id="2_tprx6"]
+[ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/entities/player.tscn" id="3_n7fo6"]
+[ext_resource type="PackedScene" uid="uid://dwyccww2roa67" path="res://scenes/entities/enemies/green_alien.tscn" id="4_so6hm"]
+[ext_resource type="PackedScene" uid="uid://gbc78jdig4bk" path="res://scenes/effects/blinking_text.tscn" id="5_uegee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
 
 [node name="GameScreen" type="Area2D"]
-script = ExtResource("1_b14wn")
+script = ExtResource("1_el8ab")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -20,10 +21,14 @@ texture_filter = 1
 position = Vector2(64, 64)
 
 [node name="Starfield" type="Node2D" parent="."]
-script = ExtResource("3_86dqm")
+script = ExtResource("2_tprx6")
 
-[node name="Player" parent="." instance=ExtResource("3_vs7wm")]
+[node name="Player" parent="." instance=ExtResource("3_n7fo6")]
 position = Vector2(64, 100)
 
-[node name="GreenAlien" parent="." instance=ExtResource("4_m2rxy")]
+[node name="GreenAlien" parent="." instance=ExtResource("4_so6hm")]
 position = Vector2(65, 48)
+
+[node name="WaveText" parent="." instance=ExtResource("5_uegee")]
+visible = false
+position = Vector2(0, 40)
