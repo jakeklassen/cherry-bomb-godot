@@ -2,19 +2,23 @@
 
 extends Node2D
 
-@export var message: String
-@export var duration: float = -1
-@onready var text_label = $Text
+@export var timeout: float = 0
+@export var duration: float = 0.5
 
-var format_string = "[blink colors=#5F574FFF,#C2C3C7FF,#FFF1E8FF sequence=0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0 duration=0.5][center][color=#5F574F]%s[/color][/center][/blink]"
+signal finished
+
+var format_string = "[blink colors=#5F574FFF,#C2C3C7FF,#FFF1E8FF sequence=0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0 duration=%f][center][color=#5F574F]%s[/color][/center][/blink]"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	text_label.text = format_string % message
+	$Text.text = format_string % [duration, ""]
 	
-	if duration > 0:
-		get_tree().create_timer(duration).connect("timeout", queue_free)
+	if timeout > 0:
+		get_tree().create_timer(timeout).connect("timeout", func(): finished.emit())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _process(_delta: float) -> void:
+	queue_redraw()
+
+func set_message(new_message: String) -> void:
+	$Text.text = format_string % [duration, new_message]

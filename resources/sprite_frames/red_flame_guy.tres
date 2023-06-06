@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://ci3coe2yswlq0"]
+
+[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_s1vpx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j38fo"]
+atlas = ExtResource("1_s1vpx")
+region = Rect2(32, 72, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k41t0"]
+atlas = ExtResource("1_s1vpx")
+region = Rect2(40, 72, 8, 8)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j38fo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k41t0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

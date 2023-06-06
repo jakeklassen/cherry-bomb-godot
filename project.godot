@@ -32,7 +32,7 @@ window/vsync/vsync_mode=0
 [editor]
 
 movie_writer/mjpeg_quality=1.0
-movie_writer/movie_file="D:/workspace/gamedev/godot-4/cherry-bomb/movies/gameplay.avi"
+movie_writer/movie_file="D:/workspace/gamedev/godot-4/cherry-bomb/movies/gameplay.png"
 
 [input]
 

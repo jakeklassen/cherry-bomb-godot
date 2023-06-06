@@ -1,21 +1,20 @@
 [gd_scene load_steps=9 format=3 uid="uid://dv4rvbrbkvctl"]
 
-[ext_resource type="Script" path="res://scripts/screen.gd" id="1_cxlo5"]
-[ext_resource type="AudioStream" uid="uid://cmbokm0vgejbv" path="res://assets/audio/title-screen-music.wav" id="2_iqm4b"]
-[ext_resource type="Script" path="res://scenes/starfield.gd" id="3_e52g0"]
-[ext_resource type="PackedScene" uid="uid://1exif2bjqu3r" path="res://scenes/entities/title_screen_alien.tscn" id="4_mswqs"]
-[ext_resource type="PackedScene" uid="uid://dbfvnar58rwij" path="res://scenes/entities/logo.tscn" id="5_u72ad"]
-[ext_resource type="FontFile" uid="uid://cluaeu6c2ama5" path="res://assets/font/PICO-8.ttf" id="6_8whev"]
-[ext_resource type="RichTextEffect" uid="uid://dhlb4ioshpm7h" path="res://scripts/text_custom_effects/blink.tres" id="7_0e0p3"]
+[ext_resource type="Script" path="res://scripts/screen.gd" id="1_6ygy6"]
+[ext_resource type="AudioStream" uid="uid://cmbokm0vgejbv" path="res://assets/audio/title-screen-music.wav" id="2_3xabb"]
+[ext_resource type="Script" path="res://scenes/starfield.gd" id="3_r3v8x"]
+[ext_resource type="PackedScene" uid="uid://1exif2bjqu3r" path="res://scenes/entities/title_screen_alien.tscn" id="4_cpqog"]
+[ext_resource type="PackedScene" uid="uid://dbfvnar58rwij" path="res://scenes/entities/logo.tscn" id="5_lm0ha"]
+[ext_resource type="FontFile" uid="uid://cluaeu6c2ama5" path="res://assets/font/PICO-8.ttf" id="6_ijse1"]
+[ext_resource type="RichTextEffect" uid="uid://dhlb4ioshpm7h" path="res://scripts/text_custom_effects/blink.tres" id="7_ko1en"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
 
 [node name="TitleScreen" type="Area2D"]
-script = ExtResource("1_cxlo5")
+script = ExtResource("1_6ygy6")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_iqm4b")
-autoplay = true
+stream = ExtResource("2_3xabb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -26,12 +25,12 @@ texture_filter = 1
 position = Vector2(64, 64)
 
 [node name="Starfield" type="Node2D" parent="."]
-script = ExtResource("3_e52g0")
+script = ExtResource("3_r3v8x")
 
-[node name="TitleScreenAlien" parent="." instance=ExtResource("4_mswqs")]
+[node name="TitleScreenAlien" parent="." instance=ExtResource("4_cpqog")]
 position = Vector2(64, 35)
 
-[node name="Logo" parent="." instance=ExtResource("5_u72ad")]
+[node name="Logo" parent="." instance=ExtResource("5_lm0ha")]
 position = Vector2(64, 37)
 
 [node name="V1" type="RichTextLabel" parent="."]
@@ -40,7 +39,7 @@ offset_top = 1.0
 offset_right = 9.0
 offset_bottom = 6.0
 theme_override_colors/default_color = Color(0.113725, 0.168627, 0.32549, 1)
-theme_override_fonts/normal_font = ExtResource("6_8whev")
+theme_override_fonts/normal_font = ExtResource("6_ijse1")
 theme_override_font_sizes/normal_font_size = 5
 bbcode_enabled = true
 text = "v1"
@@ -49,7 +48,7 @@ text = "v1"
 offset_top = 45.0
 offset_right = 128.0
 offset_bottom = 50.0
-theme_override_fonts/normal_font = ExtResource("6_8whev")
+theme_override_fonts/normal_font = ExtResource("6_ijse1")
 theme_override_font_sizes/normal_font_size = 5
 bbcode_enabled = true
 text = "[center][color=#c2c3c7]short shwave shmup[/color][/center]"
@@ -58,17 +57,17 @@ text = "[center][color=#c2c3c7]short shwave shmup[/color][/center]"
 offset_top = 90.0
 offset_right = 128.0
 offset_bottom = 95.0
-theme_override_fonts/normal_font = ExtResource("6_8whev")
+theme_override_fonts/normal_font = ExtResource("6_ijse1")
 theme_override_font_sizes/normal_font_size = 5
 bbcode_enabled = true
 text = "[blink colors=#5F574FFF,#C2C3C7FF,#FFF1E8FF sequence=0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0 duration=0.5][center][color=#5F574F]press any key to start[/color][/center][/blink]"
-custom_effects = [ExtResource("7_0e0p3")]
+custom_effects = [ExtResource("7_ko1en")]
 
 [node name="ShotControls" type="RichTextLabel" parent="."]
 offset_top = 100.0
 offset_right = 128.0
 offset_bottom = 105.0
-theme_override_fonts/normal_font = ExtResource("6_8whev")
+theme_override_fonts/normal_font = ExtResource("6_ijse1")
 theme_override_font_sizes/normal_font_size = 5
 bbcode_enabled = true
 text = "[center][color=5F574F]Z (Shoot) X (Spread Shot)[/color][/center]"
@@ -77,7 +76,7 @@ text = "[center][color=5F574F]Z (Shoot) X (Spread Shot)[/color][/center]"
 offset_top = 110.0
 offset_right = 128.0
 offset_bottom = 115.0
-theme_override_fonts/normal_font = ExtResource("6_8whev")
+theme_override_fonts/normal_font = ExtResource("6_ijse1")
 theme_override_font_sizes/normal_font_size = 5
 bbcode_enabled = true
 text = "[center][color=5F574F]arrow keys to move[/color][/center]"

@@ -8,9 +8,11 @@ extends Area2D
 @export var max_waves: int = 9
 
 @onready var config = get_node("/root/Config")
-@onready var wave_text_label2 = $WaveText
 
 var BlinkingText = preload("res://scenes/effects/blinking_text.tscn")
+var Enemy = preload("res://scenes/entities/enemies/enemy.tscn")
+
+var spawning: bool = false
 
 # highscore loading?
 
@@ -25,27 +27,46 @@ func _process(_delta: float) -> void:
 		# At some point show a menu and don't just kill the game
 		get_tree().quit();
 
+	var enemy_count = get_tree().get_nodes_in_group("enemies").size()
+
+	if enemy_count == 0 and spawning == false:
+		next_wave()
+
 func next_wave() -> void:
+	spawning = true
 	wave += 1
 	var current_wave = config.waves[wave]
+	assert(current_wave != null, "Wave not found")
+	var wave_enemies = current_wave.enemies
 
 	var wave_string = "wave %s of 9"
 	var wave_text = wave_string % wave
 	var wave_text_label = BlinkingText.instantiate()
-	wave_text_label.message = wave_text
-	wave_text_label.duration = 2.6
+	wave_text_label.timeout = 2.6
 	wave_text_label.position = Vector2(0, 40)
 
 	get_tree().root.add_child(wave_text_label)
+	wave_text_label.set_message(wave_text)
 
-	await get_tree().create_timer(2.6).timeout
+	# Wait for the wave text to finish
+	await wave_text_label.finished
+	wave_text_label.queue_free()
 
-	for y in range(current_wave.size()):
-		for x in range(current_wave[y].size()):
-			var enemy = current_wave[y][x]
+	for y in range(wave_enemies.size()):
+		for x in range(wave_enemies[y].size()):
+			var enemy = wave_enemies[y][x]
 			if enemy == 0:
 				continue
 
-			var enemy_instance = enemy.instance()
-			enemy_instance.position = Vector2(x * 32, y * 32)
-			add_child(enemy_instance)
+			var destinationX = 4 + ((x + 1) * 12) - 6
+			var destinationY = 4 + ((y + 1) * 12)
+
+			var spawn_position = Vector2(destinationX * 1.25 - 16, destinationY - 66)
+			var enemy_destination = Vector2(destinationX, destinationY)
+			var enemy_instance = Enemy.instantiate()
+			enemy_instance.id = enemy
+			enemy_instance.position = enemy_destination
+			get_tree().root.add_child(enemy_instance)
+
+	spawning = false
+
