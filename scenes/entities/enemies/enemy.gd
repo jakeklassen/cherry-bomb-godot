@@ -8,8 +8,10 @@ extends Area2D
 var Explosion = preload("res://scenes/effects/explosion.tscn")
 var GreenAlienSpriteFrames = preload("res://resources/sprite_frames/green_alien.tres")
 var RedFlameGuySpriteFrames = preload("res://resources/sprite_frames/red_flame_guy.tres")
+var SpinningShipSpriteFrames = preload("res://resources/sprite_frames/spinning_ship.tres")
 
 var health: int
+var score: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,9 +21,15 @@ func _ready() -> void:
 		1:
 			$AnimatedSprite2D.set_sprite_frames(GreenAlienSpriteFrames)
 			health = config.entities.enemies.green_alien.starting_health
+			score = config.entities.enemies.green_alien.score
 		2:
 			$AnimatedSprite2D.set_sprite_frames(RedFlameGuySpriteFrames)
 			health = config.entities.enemies.red_flame_guy.starting_health
+			score = config.entities.enemies.red_flame_guy.score
+		3:
+			$AnimatedSprite2D.set_sprite_frames(SpinningShipSpriteFrames)
+			health = config.entities.enemies.spinning_ship.starting_health
+			score = config.entities.enemies.spinning_ship.score
 
 	$AnimatedSprite2D.play("default")
 

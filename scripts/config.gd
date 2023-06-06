@@ -12,7 +12,7 @@ var entities = {
 			score = 200,
 			starting_health = 2
 		},
-		spinning_guy = {
+		spinning_ship = {
 			id = 3,
 			score = 300,
 			starting_health = 4
