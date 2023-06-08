@@ -8,7 +8,7 @@ var age: float
 var max_age: float
 var color: Color
 var radius: float
-var isBlue: bool
+var is_blue: bool
 var spark: bool
 var velocity: Vector2
 
@@ -17,7 +17,7 @@ func _init(x: float = 0, y: float = 0) -> void:
 	max_age = 0.333 + randf_range(0, 0.333)
 	color = Color.hex(Pico8.Pico8Color.Color7)
 	radius = 1 + randi_range(0, 4)
-	isBlue = false
+	is_blue = false
 	spark = false
 	position = Vector2(x, y)
 	velocity = Vector2(randf_range(-90, 90), randf_range(-90, 90))
@@ -46,7 +46,7 @@ func _draw() -> void:
 #	draw_arc(position, floori(radius), 0, TAU, 32, color)
 
 func determine_particle_color_from_age() -> Color:
-	if (isBlue == false):
+	if is_blue == false:
 		if age > 0.5:
 			return Color.hex(Pico8.Pico8Color.Color5)
 		elif age > 0.4:
@@ -57,5 +57,16 @@ func determine_particle_color_from_age() -> Color:
 			return Color.hex(Pico8.Pico8Color.Color9)
 		elif age > 0.166:
 			return Color.hex(Pico8.Pico8Color.Color10)
+	elif is_blue == true:
+		if age > 0.5:
+			return Color.hex(Pico8.Pico8Color.Color1)
+		elif age > 0.4:
+			return Color.hex(Pico8.Pico8Color.Color1)
+		elif age > 0.33:
+			return Color.hex(Pico8.Pico8Color.Color13)
+		elif age > 0.233:
+			return Color.hex(Pico8.Pico8Color.Color12)
+		elif age > 0.166:
+			return Color.hex(Pico8.Pico8Color.Color6)
 
 	return Color.hex(Pico8.Pico8Color.Color7)

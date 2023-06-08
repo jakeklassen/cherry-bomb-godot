@@ -5,11 +5,11 @@ func _ready() -> void:
 	# Infinite tween
 	var tween = create_tween().set_ease(Tween.EASE_IN).set_loops()
 
-	tween.tween_property(self, "position:y", -7, 1).as_relative()\
+	tween.tween_property(self, "position:y", -7, 1).as_relative() \
 		.set_delay(0.5)
 
-	tween.tween_property(self, "position:y", 7, 1).as_relative()\
-		.set_delay(1)\
+	tween.tween_property(self, "position:y", 7, 1).as_relative() \
+		.set_delay(1) \
 		.finished.connect(reset_x)
 
 func reset_x() -> void:

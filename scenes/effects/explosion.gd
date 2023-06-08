@@ -4,6 +4,7 @@ signal completed
 
 @export var particle_count: int = 30
 @export var spark_count: int = 20
+@export var is_blue: bool = false
 
 var particles: Array[Particle] = []
 var sparks: Array[Particle] = []
@@ -28,9 +29,10 @@ func _ready() -> void:
 	flash.velocity = Vector2.ZERO
 	add_child(flash)
 
-
 	for i in particle_count:
-		add_child(Particle.new())
+		var particle = Particle.new()
+		particle.is_blue = is_blue
+		add_child(particle)
 
 	for i in spark_count:
 		var spark = Particle.new()

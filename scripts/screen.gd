@@ -6,7 +6,7 @@ func _process(_delta: float) -> void:
 		# At some point show a menu and don't just kill the game
 		get_tree().quit();
 
-	# https://docs.godotengine.org/en/stable/tutorials/scripting/change_scenes_manually.html 
+	# https://docs.godotengine.org/en/stable/tutorials/scripting/change_scenes_manually.html
 	if Input.is_anything_pressed():
 		var current_screen = self.name
 

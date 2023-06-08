@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://6ei1x4ysx4ca"]
+
+[ext_resource type="Shader" path="res://shaders/sprite_flash.gdshader" id="1_hqnk5"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_hqnk5")
+shader_parameter/active = false

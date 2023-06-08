@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqurpijiboupe"]
+[gd_scene load_steps=7 format=3 uid="uid://cqurpijiboupe"]
 
 [ext_resource type="Script" path="res://scenes/screens/game_screen.gd" id="1_tp676"]
 [ext_resource type="Script" path="res://scenes/starfield.gd" id="2_wvc8h"]
 [ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/entities/player.tscn" id="3_6oubw"]
+[ext_resource type="PackedScene" uid="uid://ckhono7tr1w3q" path="res://scenes/hud/lives.tscn" id="4_h644b"]
+[ext_resource type="FontFile" uid="uid://cluaeu6c2ama5" path="res://assets/font/PICO-8.ttf" id="5_w7wc5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
 
@@ -23,3 +25,22 @@ script = ExtResource("2_wvc8h")
 
 [node name="Player" parent="." instance=ExtResource("3_6oubw")]
 position = Vector2(64, 100)
+
+[node name="HUD" type="Node2D" parent="."]
+z_index = 1000
+
+[node name="Lives" parent="HUD" instance=ExtResource("4_h644b")]
+
+[node name="ScoreText" type="RichTextLabel" parent="HUD"]
+offset_left = 40.0
+offset_top = 2.0
+offset_right = 104.0
+offset_bottom = 7.0
+theme_override_colors/default_color = Color(0.160784, 0.678431, 1, 1)
+theme_override_fonts/normal_font = ExtResource("5_w7wc5")
+theme_override_font_sizes/normal_font_size = 5
+text = "score:"
+
+[node name="EnemyAttackTimer" type="Timer" parent="."]
+
+[node name="EnemyFireTimer" type="Timer" parent="."]
