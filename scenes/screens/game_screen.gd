@@ -1,10 +1,12 @@
-extends Area2D
+extends Node2D
 
 enum GameState {
 	GameOver,
 	GameWon,
 	Playing,
 }
+
+signal game_over
 
 @export var wave: int = 0
 @export var max_waves: int = 9
@@ -38,7 +40,7 @@ func _ready() -> void:
 		func(_old_cherries: int, new_cherries: int): $HUD/CherriesText.text = "%d" % new_cherries
 	)
 
-	game_state.connect("game_over", game_over)
+	game_state.connect("player_dead", handle_game_over)
 
 	update_score(0)
 	next_wave()
@@ -51,10 +53,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_pressed("quit"):
-		# At some point show a menu and don't just kill the game
-		get_tree().quit();
-
 	var enemy_count = get_tree().get_nodes_in_group("enemies").size()
 
 	if enemy_count == 0 and not spawning_wave:
@@ -68,7 +66,7 @@ func _draw() -> void:
 #	draw_line(Vector2(104, 0), Vector2(104, 128), Color(1, 1, 1, 0.5), 1)
 
 
-func game_over() -> void:
+func handle_game_over() -> void:
 	$GameOverAudioPlayer.play()
 	$EnemyAttackTimer.stop()
 	$EnemyFireTimer.stop()
@@ -77,7 +75,8 @@ func game_over() -> void:
 	$HUD/GameOver.visible = true
 	$HUD/AnyKeyToContinue.visible = true
 
-	get_tree().paused = true
+	process_mode = PROCESS_MODE_DISABLED
+	game_over.emit()
 
 
 func next_wave() -> void:
@@ -113,7 +112,7 @@ func next_wave() -> void:
 			var enemy_instance = Enemy.instantiate()
 			enemy_instance.id = enemy
 
-			get_tree().root.add_child(enemy_instance)
+			add_child(enemy_instance)
 
 			var destinationX = (enemy_instance.sprite_size.size.x / 2) + ((x + 1) * 12) - 6
 			var destinationY = (enemy_instance.sprite_size.size.y / 2) + ((y + 1) * 12)

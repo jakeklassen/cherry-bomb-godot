@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://dv4rvbrbkvctl"]
+[gd_scene load_steps=7 format=3 uid="uid://dv4rvbrbkvctl"]
 
-[ext_resource type="Script" path="res://scripts/screen.gd" id="1_6ygy6"]
 [ext_resource type="AudioStream" uid="uid://cmbokm0vgejbv" path="res://assets/audio/title-screen-music.wav" id="2_3xabb"]
 [ext_resource type="Script" path="res://scenes/starfield.gd" id="3_r3v8x"]
 [ext_resource type="PackedScene" uid="uid://1exif2bjqu3r" path="res://scenes/entities/title_screen_alien.tscn" id="4_cpqog"]
@@ -8,21 +7,10 @@
 [ext_resource type="FontFile" uid="uid://cluaeu6c2ama5" path="res://assets/font/PICO-8.ttf" id="6_ijse1"]
 [ext_resource type="RichTextEffect" uid="uid://dhlb4ioshpm7h" path="res://scripts/text_custom_effects/blink.tres" id="7_ko1en"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
-
-[node name="TitleScreen" type="Area2D"]
-script = ExtResource("1_6ygy6")
+[node name="TitleScreen" type="Node2D"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_3xabb")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_3ptrv")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-texture_filter = 1
-position = Vector2(64, 64)
 
 [node name="Starfield" type="Node2D" parent="."]
 script = ExtResource("3_r3v8x")

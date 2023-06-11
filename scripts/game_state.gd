@@ -4,15 +4,23 @@ extends Node
 signal cherries_changed(old_value: int, new_value: int)
 signal lives_changed(old_value: int, new_value: int)
 signal score_changed(old_value: int, new_value: int)
-signal game_over
+signal player_dead
 
 
-var current_lives: int = 1
+var current_lives: int = 4
 var max_lives: int = 4
 var current_cherries: int  = 0
 var current_score: int = 0
 var current_wave: int = 0
 var max_waves: int = 9
+
+
+func reset() -> void:
+	current_cherries = 0
+	current_lives = max_lives
+	current_score = 0
+	current_wave = 0
+
 
 func increment_lives() -> int:
 	if current_lives == max_lives:
@@ -26,6 +34,7 @@ func increment_lives() -> int:
 
 	return current_lives
 
+
 func decrement_lives() -> int:
 	var previous_lives = current_lives
 	current_lives = current_lives - 1
@@ -34,16 +43,18 @@ func decrement_lives() -> int:
 		lives_changed.emit(previous_lives, current_lives)
 
 	if current_lives <= 0:
-		game_over.emit()
+		player_dead.emit()
 		return 0
 
 	return current_lives
+
 
 func increment_score(score: int) -> int:
 	score_changed.emit(current_score, current_score + score)
 	current_score += score
 
 	return current_score
+
 
 func increment_cherries():
 	var previous_cherries = current_cherries
@@ -68,6 +79,7 @@ func increment_cherries():
 		bonus_message = bonus_message,
 		cherries = current_cherries,
 	}
+
 
 func increment_wave() -> int:
 	if current_wave == max_waves:

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c015lkymim3qk"]
+
+[ext_resource type="PackedScene" uid="uid://be62m7t8wo8em" path="res://scenes/camera.tscn" id="1_anluy"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_xlrxh"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_xlrxh")
+
+[node name="Camera2D" parent="." instance=ExtResource("1_anluy")]
+position = Vector2(64, 64)
+
+[node name="AnyKeyPressedTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true

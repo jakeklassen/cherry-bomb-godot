@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://cqurpijiboupe"]
+[gd_scene load_steps=11 format=3 uid="uid://cqurpijiboupe"]
 
 [ext_resource type="Script" path="res://scenes/screens/game_screen.gd" id="1_tp676"]
-[ext_resource type="PackedScene" uid="uid://be62m7t8wo8em" path="res://scenes/camera.tscn" id="2_6yi6i"]
 [ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/entities/player.tscn" id="3_6oubw"]
 [ext_resource type="RichTextEffect" uid="uid://dhlb4ioshpm7h" path="res://scripts/text_custom_effects/blink.tres" id="3_jy1k8"]
 [ext_resource type="PackedScene" uid="uid://ckhono7tr1w3q" path="res://scenes/hud/lives.tscn" id="4_h644b"]
@@ -12,19 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://cqdpjnlmngmx" path="res://assets/audio/wave-spawn.wav" id="8_4mcrt"]
 [ext_resource type="AudioStream" uid="uid://cptb8unvvtgm5" path="res://assets/audio/game-over.wav" id="8_l5lk8"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
-
-[node name="GameScreen" type="Area2D"]
-process_mode = 3
+[node name="GameScreen" type="Node2D"]
 script = ExtResource("1_tp676")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_3ptrv")
-disabled = true
-
-[node name="Camera" parent="." instance=ExtResource("2_6yi6i")]
-position = Vector2(64, 64)
 
 [node name="Starfield" parent="." instance=ExtResource("4_xoi7l")]
 

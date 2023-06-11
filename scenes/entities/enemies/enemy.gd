@@ -178,7 +178,7 @@ func start_wave_pattern() -> void:
 
 func fire(target = null) -> void:
 	var bullet = EnemyBullet.instantiate()
-	get_tree().root.add_child(bullet)
+	get_parent().add_child(bullet)
 	$ShotAudioPlayer.play()
 
 	bullet.position = position + Vector2(0, 2)
@@ -196,7 +196,7 @@ func fire_spread(count: int) -> void:
 	for i in range(count):
 		var bullet = EnemyBullet.instantiate()
 
-		get_tree().root.add_child(bullet)
+		get_parent().add_child(bullet)
 
 		# bullet.transform = self.transform.translated(Vector2(0, 2))
 		bullet.position = position + radius.rotated(time / 2.0 + step * i)
