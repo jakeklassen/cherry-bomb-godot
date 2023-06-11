@@ -20,6 +20,26 @@ func _ready() -> void:
 
 		add_child(sprite)
 
+	game_state.connect("lives_changed", update_lives)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func update_lives(old_lives: int, new_lives: int) -> void:
+	var difference = new_lives - old_lives
+
+	if difference == 0:
+		return
+
+	if difference > 0: # Gained a life
+		for heart in hearts:
+			if heart.region_rect == HeartEmptyRegion:
+				heart.region_rect = HeartFullRegion
+				break
+	elif difference < 0:
+		for i in range(hearts.size() - 1, -1, -1):
+			var heart = hearts[i]
+			if heart.region_rect == HeartFullRegion:
+				heart.region_rect = HeartEmptyRegion
+				break

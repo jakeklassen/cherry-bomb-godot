@@ -10,21 +10,36 @@ var color: Color
 var radius: float
 var is_blue: bool
 var spark: bool
+var direction: Vector2
 var velocity: Vector2
 
-func _init(x: float = 0, y: float = 0) -> void:
+
+func _init(x: float = 0, y: float = 0, is_spark: bool = false) -> void:
 	age = randf_range(0, 0.066)
-	max_age = 0.333 + randf_range(0, 0.333)
-	color = Color.hex(Pico8.Pico8Color.Color7)
+	max_age = 0.3 + randf_range(0, 0.3)
+	color = Pico8.Colors.Color7
 	radius = 1 + randi_range(0, 4)
 	is_blue = false
-	spark = false
+	spark = is_spark
+	direction = Vector2(
+		sign(randf_range(-1, 1)),
+		sign(randf_range(-1, 1))
+	).normalized()
 	position = Vector2(x, y)
-	velocity = Vector2(randf_range(-90, 90), randf_range(-90, 90))
+	velocity = Vector2(randf(), randf()) * 140
+
+	if is_spark:
+		velocity = Vector2(randf(), randf()) * 300
+
+
+func _ready() -> void:
+	create_tween().set_trans(Tween.TRANS_CIRC) \
+		.set_ease(Tween.EASE_OUT) \
+		.tween_property(self, "velocity", Vector2.ZERO, (max_age - age) / 2)
+
 
 func _process(delta: float) -> void:
 	age += delta
-	velocity *= 0.85
 
 	if age >= max_age:
 		radius -= 0.5
@@ -33,40 +48,42 @@ func _process(delta: float) -> void:
 			queue_free()
 			return
 
-	position += velocity * delta
+	position += direction * velocity * delta
 	color = determine_particle_color_from_age()
 
 	queue_redraw()
 
+
 func _draw() -> void:
 	if spark == true:
-		draw_rect(Rect2(position.x, position.y, 1, 1), Color.hex(Pico8.Pico8Color.Color7))
+		draw_rect(Rect2(position.x, position.y, 1, 1), Pico8.Colors.Color7)
 	else:
 		draw_circle(position.floor(), floori(radius), color)
 #	draw_arc(position, floori(radius), 0, TAU, 32, color)
 
+
 func determine_particle_color_from_age() -> Color:
 	if is_blue == false:
 		if age > 0.5:
-			return Color.hex(Pico8.Pico8Color.Color5)
+			return Pico8.Colors.Color5
 		elif age > 0.4:
-			return Color.hex(Pico8.Pico8Color.Color2)
+			return Pico8.Colors.Color2
 		elif age > 0.33:
-			return Color.hex(Pico8.Pico8Color.Color8)
+			return Pico8.Colors.Color8
 		elif age > 0.233:
-			return Color.hex(Pico8.Pico8Color.Color9)
+			return Pico8.Colors.Color9
 		elif age > 0.166:
-			return Color.hex(Pico8.Pico8Color.Color10)
+			return Pico8.Colors.Color10
 	elif is_blue == true:
 		if age > 0.5:
-			return Color.hex(Pico8.Pico8Color.Color1)
+			return Pico8.Colors.Color1
 		elif age > 0.4:
-			return Color.hex(Pico8.Pico8Color.Color1)
+			return Pico8.Colors.Color1
 		elif age > 0.33:
-			return Color.hex(Pico8.Pico8Color.Color13)
+			return Pico8.Colors.Color13
 		elif age > 0.233:
-			return Color.hex(Pico8.Pico8Color.Color12)
+			return Pico8.Colors.Color12
 		elif age > 0.166:
-			return Color.hex(Pico8.Pico8Color.Color6)
+			return Pico8.Colors.Color6
 
-	return Color.hex(Pico8.Pico8Color.Color7)
+	return Pico8.Colors.Color7

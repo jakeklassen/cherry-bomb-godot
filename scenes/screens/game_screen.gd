@@ -1,24 +1,45 @@
 extends Area2D
 
+enum GameState {
+	GameOver,
+	GameWon,
+	Playing,
+}
+
 @export var wave: int = 0
 @export var max_waves: int = 9
 
 @onready var config = get_node("/root/Config")
 @onready var game_state = get_node("/root/GameState")
 
-var BlinkingText = preload("res://scenes/effects/blinking_text.tscn")
-var Enemy = preload("res://scenes/entities/enemies/enemy.tscn")
-var EnemyBullet = preload("res://scenes/entities/enemies/enemy_bullet.tscn")
+const BlinkingText = preload("res://scenes/effects/blinking_text.tscn")
+const Enemy = preload("res://scenes/entities/enemies/enemy.tscn")
+const EnemyBullet = preload("res://scenes/entities/enemies/enemy_bullet.tscn")
+const TitleScreenScene = preload("res://scenes/screens/title_screen.tscn")
 
-var spawning: bool = false
+var spawning_wave: bool = false
 var current_wave = null
 
 # highscore loading?
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var master_sound = AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_mute(master_sound, true)
+
 #	get_tree().create_timer(1).connect("timeout", next_wave)
-	game_state.connect("score_changed", func(_old_score: int, new_score: int): update_score(new_score))
+	game_state.connect(
+		"score_changed",
+		func(_old_score: int, new_score: int): update_score(new_score)
+	)
+
+	game_state.connect(
+		"cherries_changed",
+		func(_old_cherries: int, new_cherries: int): $HUD/CherriesText.text = "%d" % new_cherries
+	)
+
+	game_state.connect("game_over", game_over)
+
 	update_score(0)
 	next_wave()
 
@@ -28,7 +49,7 @@ func _ready() -> void:
 	$EnemyFireTimer.connect("timeout", pick_enemy_for_fire)
 	$EnemyFireTimer.stop()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("quit"):
 		# At some point show a menu and don't just kill the game
@@ -36,24 +57,48 @@ func _process(_delta: float) -> void:
 
 	var enemy_count = get_tree().get_nodes_in_group("enemies").size()
 
-	if enemy_count == 0 and spawning == false:
+	if enemy_count == 0 and not spawning_wave:
+		$WaveCompleteAudioPlayer.play()
 		next_wave()
 
+
+func _draw() -> void:
+	pass
+#	draw_line(Vector2(24, 0), Vector2(24, 128), Color(1, 1, 1, 0.5), 1)
+#	draw_line(Vector2(104, 0), Vector2(104, 128), Color(1, 1, 1, 0.5), 1)
+
+
+func game_over() -> void:
+	$GameOverAudioPlayer.play()
+	$EnemyAttackTimer.stop()
+	$EnemyFireTimer.stop()
+
+	await get_tree().create_timer(1).timeout
+	$HUD/GameOver.visible = true
+	$HUD/AnyKeyToContinue.visible = true
+
+	get_tree().paused = true
+
+
 func next_wave() -> void:
-	spawning = true
+	if wave == max_waves:
+		return
+
+	spawning_wave = true
 	wave += 1
 	current_wave = config.waves[wave]
-	assert(current_wave != null, "Wave not found")
 	var wave_enemies = current_wave.enemies
 
 	var wave_string = "wave %s of 9"
 	var wave_text = wave_string % wave if wave <= max_waves else "final wave!"
 	var wave_text_label = BlinkingText.instantiate()
 	wave_text_label.timeout = 2.6
-	wave_text_label.position = Vector2(0, 40)
 
-	get_tree().root.add_child(wave_text_label)
+	add_child(wave_text_label)
+
 	wave_text_label.set_message(wave_text)
+	var text_node: RichTextLabel = wave_text_label.get_node("Text")
+	wave_text_label.position = Vector2(64 - text_node.get_content_width() / 2.0, 40)
 
 	# Wait for the wave text to finish
 	await wave_text_label.finished
@@ -79,30 +124,45 @@ func next_wave() -> void:
 			enemy_instance.position = spawn_position
 			enemy_instance.fly_in(enemy_destination, 0.8, x * 0.1)
 
-	spawning = false
-
+	get_tree().create_timer(0.2) \
+		.connect("timeout", func(): $WaveSpawnAudioPlayer.play())
 	await get_tree().create_timer(1.2).timeout
 	$EnemyAttackTimer.start(current_wave.attack_frequency)
 	$EnemyFireTimer.start(current_wave.fire_frequency)
 
+	spawning_wave = false
+
+
 func update_score(score: int) -> void:
 	$HUD/ScoreText.text = "score:%d" % score
 
-func pick_enemy_for_attack() -> void:
-	print("pick_enemy_for_attack")
 
-func pick_enemy_for_fire() -> void:
-	print("pick_enemy_for_fire")
+func pick_enemy_for_attack() -> void:
+	# We only trigger an attack 50% of the time
+	if randf() < 0.5:
+		return
 
 	var enemies = get_tree().get_nodes_in_group("enemies")
+	var pickable_enemies = enemies.filter(determine_pickable_enemies)
+	pickable_enemies.sort_custom(sort_entities_by_position)
 
-	for enemy in enemies:
-		if enemy.id != Constants.EnemyType.YellowShip and enemy.state != Constants.EnemyState.Protect:
-			continue
+	var enemy = pick_random_enemy(pickable_enemies, 10)
 
+	if enemy == null or enemy.id == Constants.EnemyType.Boss:
+		return
+
+	enemy.attack()
+
+
+func pick_enemy_for_fire() -> void:
+	var enemies = get_tree().get_nodes_in_group("enemies")
+
+	var yellow_ships = enemies.filter(attack_ready_yellow_ship_filter)
+	for enemy in yellow_ships:
 		if randf() < 0.5:
-			# FIRE SPREAD
-			break;
+			enemy.fire_spread(12)
+			$EnemyFireTimer.start(current_wave.fire_frequency + randf_range(0, current_wave.fire_frequency))
+			return
 
 	var pickable_enemies = enemies.filter(determine_pickable_enemies)
 	pickable_enemies.sort_custom(sort_entities_by_position)
@@ -112,11 +172,16 @@ func pick_enemy_for_fire() -> void:
 	if enemy == null:
 		return
 
-	var bullet = EnemyBullet.instantiate()
-	get_tree().root.add_child(bullet)
-	bullet.position = enemy.position + Vector2(0, 2)
+	match enemy.id:
+		Constants.EnemyType.GreenAlien, Constants.EnemyType.SpinningShip:
+			enemy.fire()
+		Constants.EnemyType.RedFlameGuy:
+			enemy.fire($Player.position)
+		Constants.EnemyType.YellowShip:
+			enemy.fire_spread(12)
 
 	$EnemyFireTimer.start(current_wave.fire_frequency + randf_range(0, current_wave.fire_frequency))
+
 
 func sort_entities_by_position(a: Area2D, b: Area2D) -> bool:
 	if a.position.y < b.position.y:
@@ -133,8 +198,10 @@ func sort_entities_by_position(a: Area2D, b: Area2D) -> bool:
 
 	return false
 
+
 func determine_pickable_enemies(enemy: Area2D) -> bool:
 	return enemy.state == Constants.EnemyState.Protect
+
 
 func pick_random_enemy(enemies: Array[Node], elements_from_last: int = 10) -> Node:
 	if enemies.size() == 0:
@@ -145,3 +212,7 @@ func pick_random_enemy(enemies: Array[Node], elements_from_last: int = 10) -> No
 	var enemy_index = enemies.size() - random_index
 
 	return enemies[enemy_index]
+
+
+func attack_ready_yellow_ship_filter(enemy) -> bool:
+	return enemy.state == Constants.EnemyState.Protect and enemy.id == Constants.EnemyType.YellowShip

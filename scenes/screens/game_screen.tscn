@@ -1,14 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqurpijiboupe"]
+[gd_scene load_steps=13 format=3 uid="uid://cqurpijiboupe"]
 
 [ext_resource type="Script" path="res://scenes/screens/game_screen.gd" id="1_tp676"]
-[ext_resource type="Script" path="res://scenes/starfield.gd" id="2_wvc8h"]
+[ext_resource type="PackedScene" uid="uid://be62m7t8wo8em" path="res://scenes/camera.tscn" id="2_6yi6i"]
 [ext_resource type="PackedScene" uid="uid://b50dtnmtf8mkc" path="res://scenes/entities/player.tscn" id="3_6oubw"]
+[ext_resource type="RichTextEffect" uid="uid://dhlb4ioshpm7h" path="res://scripts/text_custom_effects/blink.tres" id="3_jy1k8"]
 [ext_resource type="PackedScene" uid="uid://ckhono7tr1w3q" path="res://scenes/hud/lives.tscn" id="4_h644b"]
+[ext_resource type="PackedScene" uid="uid://bilqpwocybcmx" path="res://scenes/starfield.tscn" id="4_xoi7l"]
 [ext_resource type="FontFile" uid="uid://cluaeu6c2ama5" path="res://assets/font/PICO-8.ttf" id="5_w7wc5"]
+[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="6_i2qhi"]
+[ext_resource type="AudioStream" uid="uid://cblalo6evpqhg" path="res://assets/audio/wave-complete.wav" id="7_gamn7"]
+[ext_resource type="AudioStream" uid="uid://cqdpjnlmngmx" path="res://assets/audio/wave-spawn.wav" id="8_4mcrt"]
+[ext_resource type="AudioStream" uid="uid://cptb8unvvtgm5" path="res://assets/audio/game-over.wav" id="8_l5lk8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ptrv"]
 
 [node name="GameScreen" type="Area2D"]
+process_mode = 3
 script = ExtResource("1_tp676")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -16,12 +23,10 @@ visible = false
 shape = SubResource("RectangleShape2D_3ptrv")
 disabled = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-texture_filter = 1
+[node name="Camera" parent="." instance=ExtResource("2_6yi6i")]
 position = Vector2(64, 64)
 
-[node name="Starfield" type="Node2D" parent="."]
-script = ExtResource("2_wvc8h")
+[node name="Starfield" parent="." instance=ExtResource("4_xoi7l")]
 
 [node name="Player" parent="." instance=ExtResource("3_6oubw")]
 position = Vector2(64, 100)
@@ -39,8 +44,57 @@ offset_bottom = 7.0
 theme_override_colors/default_color = Color(0.160784, 0.678431, 1, 1)
 theme_override_fonts/normal_font = ExtResource("5_w7wc5")
 theme_override_font_sizes/normal_font_size = 5
-text = "score:"
+text = "score:0"
+
+[node name="CherrySprite" type="Sprite2D" parent="HUD"]
+position = Vector2(108, 5)
+texture = ExtResource("6_i2qhi")
+region_enabled = true
+region_rect = Rect2(0, 24, 8, 8)
+
+[node name="CherriesText" type="RichTextLabel" parent="HUD"]
+offset_left = 114.0
+offset_top = 2.0
+offset_right = 122.0
+offset_bottom = 10.0
+theme_override_colors/default_color = Color(1, 0.466667, 0.658824, 1)
+theme_override_fonts/normal_font = ExtResource("5_w7wc5")
+theme_override_font_sizes/normal_font_size = 5
+text = "0"
+
+[node name="AnyKeyToContinue" type="RichTextLabel" parent="HUD"]
+process_mode = 3
+visible = false
+offset_top = 90.0
+offset_right = 128.0
+offset_bottom = 95.0
+theme_override_fonts/normal_font = ExtResource("5_w7wc5")
+theme_override_font_sizes/normal_font_size = 5
+bbcode_enabled = true
+text = "[blink colors=5F574FFF,C2C3C7FF,FFF1E8FF sequence=0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0 duration=0.5][center][color=5F574F]press any key to continue[/color][/center][/blink]"
+custom_effects = [ExtResource("3_jy1k8")]
+
+[node name="GameOver" type="RichTextLabel" parent="HUD"]
+process_mode = 3
+visible = false
+offset_top = 40.0
+offset_right = 128.0
+offset_bottom = 45.0
+theme_override_fonts/normal_font = ExtResource("5_w7wc5")
+theme_override_font_sizes/normal_font_size = 5
+bbcode_enabled = true
+text = "[center][color=FF004D]game over[/color][/center]"
+custom_effects = [ExtResource("3_jy1k8")]
 
 [node name="EnemyAttackTimer" type="Timer" parent="."]
 
 [node name="EnemyFireTimer" type="Timer" parent="."]
+
+[node name="GameOverAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_l5lk8")
+
+[node name="WaveCompleteAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_gamn7")
+
+[node name="WaveSpawnAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_4mcrt")

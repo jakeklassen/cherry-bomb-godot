@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgxc7nm2jbwn4"]
+[gd_scene load_steps=8 format=3 uid="uid://cgxc7nm2jbwn4"]
 
 [ext_resource type="Script" path="res://scenes/entities/enemies/enemy.gd" id="1_vjofk"]
 [ext_resource type="SpriteFrames" uid="uid://bg8jowxt5d211" path="res://resources/sprite_frames/green_alien.tres" id="2_a5fcr"]
 [ext_resource type="Material" uid="uid://6ei1x4ysx4ca" path="res://shaders/sprite_flash_material.tres" id="2_ncimp"]
+[ext_resource type="AudioStream" uid="uid://bg6luogu341fb" path="res://assets/audio/enemy-projectile.wav" id="4_g5lvd"]
+[ext_resource type="AudioStream" uid="uid://s4smwyqqdcyn" path="res://assets/audio/enemy-death.wav" id="5_jhl86"]
+[ext_resource type="AudioStream" uid="uid://c273tr067vhic" path="res://assets/audio/player-projectile-hit.wav" id="5_wfspk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6dd5"]
 size = Vector2(8, 8)
 
 [node name="Enemy" type="Area2D" groups=["enemies"]]
+process_mode = 1
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_vjofk")
@@ -20,3 +24,16 @@ shape = SubResource("RectangleShape2D_n6dd5")
 material = ExtResource("2_ncimp")
 sprite_frames = ExtResource("2_a5fcr")
 autoplay = "default"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jhl86")
+
+[node name="HitAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wfspk")
+
+[node name="ShotAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_g5lvd")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

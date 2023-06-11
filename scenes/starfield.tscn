@@ -6,6 +6,7 @@
 size = Vector2(0, 0)
 
 [node name="Starfield" type="Area2D"]
+process_mode = 1
 script = ExtResource("1_rt55r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

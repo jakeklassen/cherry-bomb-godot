@@ -6,3 +6,4 @@
 resource_local_to_scene = true
 shader = ExtResource("1_hqnk5")
 shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 0.945, 0.91, 1)

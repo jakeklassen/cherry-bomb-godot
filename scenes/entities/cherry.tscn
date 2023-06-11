@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdm0hl1wl5tum"]
+
+[ext_resource type="Script" path="res://scenes/entities/cherry.gd" id="1_lktkv"]
+[ext_resource type="Material" uid="uid://c2io46itxswk7" path="res://shaders/sprite_outline.tres" id="1_m22ho"]
+[ext_resource type="Texture2D" uid="uid://bft3xwc0qefki" path="res://assets/graphics/shmup.png" id="1_xu5fw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2tpc1"]
+size = Vector2(8, 8)
+
+[node name="Cherry" type="Area2D" groups=["pickups"]]
+collision_layer = 4
+script = ExtResource("1_lktkv")
+outline_colors = [Color(1, 0.945098, 0.909804, 1), Color(1, 0.466667, 0.658824, 1)]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2tpc1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_m22ho")
+texture = ExtResource("1_xu5fw")
+region_enabled = true
+region_rect = Rect2(87, 7, 10, 10)
+
+[node name="OutlineTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true

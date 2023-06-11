@@ -3,4 +3,7 @@
 [ext_resource type="Script" path="res://scenes/effects/explosion.gd" id="1_ix45q"]
 
 [node name="Explosion" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_ix45q")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

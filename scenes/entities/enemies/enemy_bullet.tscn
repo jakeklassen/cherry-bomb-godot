@@ -36,6 +36,7 @@ animations = [{
 size = Vector2(6, 6)
 
 [node name="EnemyBullet" type="Area2D" groups=["enemy_projectiles"]]
+collision_layer = 16
 script = ExtResource("1_521wa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -44,3 +45,7 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p04la")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

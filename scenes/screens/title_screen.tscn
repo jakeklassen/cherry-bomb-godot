@@ -60,7 +60,7 @@ offset_bottom = 95.0
 theme_override_fonts/normal_font = ExtResource("6_ijse1")
 theme_override_font_sizes/normal_font_size = 5
 bbcode_enabled = true
-text = "[blink colors=#5F574FFF,#C2C3C7FF,#FFF1E8FF sequence=0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0 duration=0.5][center][color=#5F574F]press any key to start[/color][/center][/blink]"
+text = "[blink colors=5F574FFF,C2C3C7FF,FFF1E8FF sequence=0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0 duration=0.5][center][color=5F574F]press any key to start[/color][/center][/blink]"
 custom_effects = [ExtResource("7_ko1en")]
 
 [node name="ShotControls" type="RichTextLabel" parent="."]
