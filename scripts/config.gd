@@ -19,7 +19,7 @@ const entities = {
 		},
 		yellow_ship = {
 			id = 4,
-			score = 400,
+			score = 500,
 			starting_health = 20
 		},
 		boss = {
