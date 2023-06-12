@@ -4,7 +4,7 @@ class_name Constants
 
 enum EnemyState { FlyIn, Protect, Attack }
 enum EnemyType { Empty, GreenAlien, RedFlameGuy, SpinningShip, YellowShip, Boss }
-enum PlayerState { Alive, Invincible, Respawning }
+enum PlayerState { Alive, Dead, Invincible, Respawning }
 
 static func noop(_args):
 	pass

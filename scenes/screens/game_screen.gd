@@ -1,18 +1,8 @@
 extends Node2D
 
-enum GameState {
-	GameOver,
-	GameWon,
-	Playing,
-}
-
 signal game_over
 
-@export var wave: int = 0
-@export var max_waves: int = 9
-
 @onready var config = get_node("/root/Config")
-@onready var game_state = get_node("/root/GameState")
 
 const BlinkingText = preload("res://scenes/effects/blinking_text.tscn")
 const Enemy = preload("res://scenes/entities/enemies/enemy.tscn")
@@ -30,17 +20,17 @@ func _ready() -> void:
 	AudioServer.set_bus_mute(master_sound, true)
 
 #	get_tree().create_timer(1).connect("timeout", next_wave)
-	game_state.connect(
+	GameState.connect(
 		"score_changed",
 		func(_old_score: int, new_score: int): update_score(new_score)
 	)
 
-	game_state.connect(
+	GameState.connect(
 		"cherries_changed",
 		func(_old_cherries: int, new_cherries: int): $HUD/CherriesText.text = "%d" % new_cherries
 	)
 
-	game_state.connect("player_dead", handle_game_over)
+	GameState.connect("player_dead", handle_game_over)
 
 	update_score(0)
 	next_wave()
@@ -80,16 +70,16 @@ func handle_game_over() -> void:
 
 
 func next_wave() -> void:
-	if wave == max_waves:
+	if GameState.current_wave == GameState.max_waves:
 		return
 
 	spawning_wave = true
-	wave += 1
+	var wave = GameState.increment_wave()
 	current_wave = config.waves[wave]
 	var wave_enemies = current_wave.enemies
 
 	var wave_string = "wave %s of 9"
-	var wave_text = wave_string % wave if wave <= max_waves else "final wave!"
+	var wave_text = wave_string % wave if wave <= GameState.max_waves else "final wave!"
 	var wave_text_label = BlinkingText.instantiate()
 	wave_text_label.timeout = 2.6
 
