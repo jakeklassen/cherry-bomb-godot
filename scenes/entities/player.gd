@@ -35,7 +35,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	direction = Vector2.ZERO;
-	process_input()
+
+	if state != Constants.PlayerState.Dead:
+		process_input()
 
 	$Sprite2D.set_region_rect(IDLE_REGION);
 
@@ -89,6 +91,7 @@ func _on_area_entered(area: Area2D) -> void:
 		state = Constants.PlayerState.Respawning
 		var lives = game_state.decrement_lives()
 		if lives == 0:
+			state = Constants.PlayerState.Dead
 			return
 
 		# While the explosion is active, the player is invisible and invincible?
