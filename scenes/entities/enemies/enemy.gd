@@ -17,6 +17,7 @@ const YellowShipSpriteFrames = preload("res://resources/sprite_frames/yellow_shi
 const BossSpriteFrames = preload("res://resources/sprite_frames/boss.tres")
 const LateralHunterAttack = preload("res://scripts/enemy_attack_patterns/lateral_hunter.gd")
 const WaveAttack = preload("res://scripts/enemy_attack_patterns/wave.gd")
+const YellowShipAttack = preload("res://scripts/enemy_attack_patterns/yellow_ship.gd")
 const Mover = preload("res://scripts/components/mover.gd")
 
 var health: int
@@ -147,6 +148,11 @@ func attack() -> void:
 	if id == Constants.EnemyType.SpinningShip:
 		var attack_pattern_node = Node2D.new()
 		attack_pattern_node.set_script(LateralHunterAttack)
+		add_child(attack_pattern_node)
+
+	if id == Constants.EnemyType.YellowShip:
+		var attack_pattern_node = Node2D.new()
+		attack_pattern_node.set_script(YellowShipAttack)
 		add_child(attack_pattern_node)
 
 
