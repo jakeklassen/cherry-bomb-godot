@@ -7,6 +7,7 @@ var target_radius: float
 var speed: float
 var color: Color
 
+
 func _init(args) -> void:
 	radius = args.radius
 	target_radius = args.target_radius
@@ -14,7 +15,7 @@ func _init(args) -> void:
 	color = args.color
 	position = args.position if "position" in args else Vector2.ZERO
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	radius += speed * delta;
 
@@ -22,6 +23,7 @@ func _process(delta: float) -> void:
 		queue_free()
 
 	queue_redraw()
+
 
 func _draw() -> void:
 	draw_arc(position.floor(), floori(radius), 0, TAU, floori(radius ** 2), color)

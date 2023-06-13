@@ -18,7 +18,7 @@ func _ready() -> void:
 
 	$OutlineTimer.connect("timeout", swap_outline_color)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	position += direction * velocity * delta
 
@@ -31,3 +31,7 @@ func swap_outline_color() -> void:
 		"outline_color",
 		current_color
 	)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

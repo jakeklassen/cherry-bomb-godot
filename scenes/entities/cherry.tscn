@@ -10,7 +10,7 @@ size = Vector2(8, 8)
 [node name="Cherry" type="Area2D" groups=["pickups"]]
 collision_layer = 4
 script = ExtResource("1_lktkv")
-outline_colors = [Color(1, 0.945098, 0.909804, 1), Color(1, 0.466667, 0.658824, 1)]
+outline_colors = Array[Color]([Color(1, 0.945098, 0.909804, 1), Color(1, 0.466667, 0.658824, 1)])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2tpc1")
@@ -24,3 +24,7 @@ region_rect = Rect2(87, 7, 10, 10)
 [node name="OutlineTimer" type="Timer" parent="."]
 wait_time = 0.05
 autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

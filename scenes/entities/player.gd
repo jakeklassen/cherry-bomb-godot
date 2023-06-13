@@ -61,6 +61,14 @@ func _on_area_entered(area: Area2D) -> void:
 		$PickupAudioPlayer.play()
 		var result = game_state.increment_cherries()
 
+		add_child(Shockwave.new({
+			color = Pico8.Colors.Color14,
+			radius = 2,
+			target_radius = 6,
+			speed = 30,
+			position = (area.position - position) / 2,
+		}))
+
 		if result.bonus_message != null:
 			var bonus_text = BonusTextFactory.create({
 				message = result.bonus_message,
