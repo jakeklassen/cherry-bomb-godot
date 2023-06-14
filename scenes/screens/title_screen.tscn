@@ -11,6 +11,7 @@
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_3xabb")
+autoplay = true
 
 [node name="Starfield" type="Node2D" parent="."]
 script = ExtResource("3_r3v8x")

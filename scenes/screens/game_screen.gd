@@ -16,9 +16,6 @@ var current_wave = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var master_sound = AudioServer.get_bus_index("Master")
-	AudioServer.set_bus_mute(master_sound, true)
-
 #	get_tree().create_timer(1).connect("timeout", next_wave)
 	GameState.connect(
 		"score_changed",

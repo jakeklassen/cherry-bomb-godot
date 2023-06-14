@@ -17,6 +17,9 @@ var state := EGameState.Uninitialized
 
 
 func _ready() -> void:
+	var master_sound = AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_mute(master_sound, false)
+
 	if state == EGameState.Uninitialized:
 		state = EGameState.TitleScreen
 		get_tree().root.call_deferred("add_child", TitleScreen.instantiate())
