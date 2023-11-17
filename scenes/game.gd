@@ -18,7 +18,7 @@ var state := GamePhase.Uninitialized
 
 func _ready() -> void:
 	var master_sound = AudioServer.get_bus_index("Master")
-	AudioServer.set_bus_mute(master_sound, false)
+	AudioServer.set_bus_mute(master_sound, true)
 
 	if state == GamePhase.Uninitialized:
 		state = GamePhase.TitleScreen
